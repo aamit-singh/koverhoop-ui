@@ -1,12 +1,49 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+class YearSelect extends React.Component{
+	constructor(){
+		super();
+		let year = new Date();
+		year = year.getFullYear();
+		let blank = new Array(80)
+		this.years = Array.from(blank,(vals, index) => year - index);
+	}
+	render() {
+	return(
+		<select>
+		 { this.years.map((year, index) => {
+			 return <option key={`year${index}`} value={year}>{year}</option>
+		   })
+		 }
+		</select>
+	);
+}
+}
+class SearchBar extends React.Component {
+	constructor(){
+		super();
+		this.state={
+			query : "",
+			year : 2019,
+			type : ""
+		};
+	}
+	
+	
+	
+	render(){
+		return (
+		<div>
+		<input type="text" id="serach query" />
+		<YearSelect />
+		</div>
+		);
+	}
+}
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+
+
+ReactDOM.render(<SearchBar />, document.getElementById('root'));
+
